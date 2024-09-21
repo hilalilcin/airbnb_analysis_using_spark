@@ -49,19 +49,19 @@ plt.ylabel("Frequency")
 plt.grid(True)
 plt.show()
 
-# Analysing of cleaning time vs price
-cleaning_time_price_sql = spark.sql("""
+# Analysing of staying time vs price
+staying_time_price_sql = spark.sql("""
         SELECT minimum_nights, price
         FROM airbnb
         WHERE price IS NOT NULL AND minimum_nights IS NOT NULL
         """)
         
         
-cleaning_time_price_pd = cleaning_time_price_sql.toPandas()
+staying_time_price_pd = staying_time_price_sql.toPandas()
                                            
 # VISUALIZATION
 plt.figure(figsize=(10,6))
-sns.scatterplot(x='minimum_nights', y='price', data=cleaning_time_price_pd, color='salmon')
+sns.scatterplot(x='minimum_nights', y='price', data=staying_time_price_pd, color='salmon')
 plt.title("Minimum Nights vs. Price")
 plt.xlabel("Minimum Nights")
 plt.ylabel("Price")
@@ -105,7 +105,7 @@ plt.ylabel("Average Price")
 plt.grid(True)
 plt.show()
 
-# Room types and cleaning time 
+# Room types and staying time 
 room_type_min_nights_sql = spark.sql("""
             SELECT room_type,AVG(minimum_nights) AS avg_min_nights
             FROM airbnb
@@ -118,9 +118,9 @@ room_type_min_nights_pd = room_type_min_nights_sql.toPandas()
 # VISUALIZATION
 plt.figure(figsize=(15,10))
 sns.barplot(x='room_type', y='avg_min_nights', data=room_type_min_nights_pd, palette='viridis')
-plt.title("Average Cleaning Time by Room Type")
+plt.title("Average Staying Time by Room Type")
 plt.xlabel("Room Type")
-plt.ylabel("Average Cleaning Time (days)")
+plt.ylabel("Average Staying Time (days)")
 plt.grid(True)
 plt.show()  
 
